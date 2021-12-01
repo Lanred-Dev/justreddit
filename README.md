@@ -48,7 +48,7 @@ async function Image() {
 }
 ```
 
-## Get a subreddit
+### Get a random subreddit
 ```js
 async function SubReddit() {
     const Response = await justreddit.SubReddit(); //default
