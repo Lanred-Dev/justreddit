@@ -1,0 +1,18 @@
+{
+  "name": "justreddit",
+  "version": "2.0",
+  "description": "A simple package for getting random posts, images, or subreddits off reddit.",
+  "main": "index.js",
+  "keywords": [
+    "reddit",
+    "randomreddit",
+    "redditposts",
+    "redditwrapper"
+  ],
+  "author": "Lanred",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  },
+  "typings": "index.d.ts"
+}
