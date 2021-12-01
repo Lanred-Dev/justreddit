@@ -11,6 +11,10 @@
   ],
   "author": "Lanred",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lanred-Dev/justreddit.git"
+  },
   "dependencies": {
     "node-fetch": "^2.6.1"
   },
