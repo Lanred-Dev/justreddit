@@ -13,6 +13,9 @@ then...
 ```js
 const justreddit = require("justreddit");
 ```
+
+or (for typescript)...
+
 ```ts
 import justreddit from "justreddit";
 ```
@@ -42,6 +45,19 @@ async function Image() {
     const New_100_Responses = await justreddit.Image("SUBREDDIT_NAME", "new", 100); //gets the new images with a limit of 100 images
 
     //Image function returns a image url
+}
+```
+
+## Get a subreddit
+```js
+async function SubReddit() {
+    const Response = await justreddit.SubReddit(); //default
+    const Top_Response = await justreddit.SubReddit("top"); //gets the top subreddits
+    const New_Response = await justreddit.SubReddit("new"); //gets the new subreddits
+    const Top_50_Response = await justreddit.SubReddit("top", 50); //gets the top subreddits with a limit of 50 subreddits
+    const New_100_Response = await justreddit.SubReddit("new", 100); //gets the new subreddits with a limit of 50 subreddits
+
+    //SubReddit returns the raw data of a subreddit
 }
 ```
 
