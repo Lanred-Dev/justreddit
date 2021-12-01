@@ -22,7 +22,7 @@ import justreddit from "justreddit";
 
 # Usage
 
-## Get a random post from a subreddit
+### Get a random post from a subreddit
 ```js
 async function Post() {
     const Response = await justreddit.Post("SUBREDDIT_NAME"); //default
@@ -35,7 +35,7 @@ async function Post() {
 }
 ```
 
-## Get a random image from a subreddit
+### Get a random image from a subreddit
 ```js
 async function Image() {
     const Response = await justreddit.Image("SUBREDDIT_NAME"); //default function
