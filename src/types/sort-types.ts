@@ -1,0 +1,1 @@
+export const SORT_TYPES: Array<string> = ["new", "top"];
