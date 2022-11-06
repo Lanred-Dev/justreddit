@@ -1,7 +1,7 @@
 {
     "name": "justreddit",
     "version": "4.0.1",
-    "description": "A simple package for getting random posts, images, or subreddits via the reddit api.",
+    "description": "A simple package for getting random posts, random images, random SubReddits, and SubReddit info.",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "engines": {
