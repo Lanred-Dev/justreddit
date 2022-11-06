@@ -79,7 +79,7 @@ justreddit.randomPostFromSub({ ...options }); // with a specified SubReddit
 /*
     # Options
 
-    subReddit?: string
+    subReddit: string
     The name of the SubReddit. Only allowed on "randomImageFromSub" function.
 
     sortType: "new", "top", "hot", "random", "controversial", "rising"
