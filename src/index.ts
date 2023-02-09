@@ -6,6 +6,8 @@ import randomImageFromSub from "./functions/randomImageFromSub";
 import subInfo from "./functions/subInfo";
 import randomSubInfo from "./functions/randomSubInfo";
 
+export * from "./types/post";
+
 export { randomPostFromSub, randomPost, randomSub, randomImage, randomImageFromSub, subInfo, randomSubInfo };
 
 export default randomPost;
