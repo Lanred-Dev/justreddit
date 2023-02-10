@@ -1,6 +1,6 @@
 {
     "name": "justreddit",
-    "version": "4.1.0",
+    "version": "4.1.1",
     "description": "A simple package for getting random posts, random images, random SubReddits, and SubReddit info.",
     "main": "build/index.js",
     "types": "build/index.d.ts",
