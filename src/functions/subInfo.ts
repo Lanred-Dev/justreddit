@@ -3,10 +3,10 @@ import response from "../types/response";
 import sub from "../types/sub";
 import { subOptions } from "../types/options";
 
-export default async function subInfo({ subReddit, excludeRaw }: subOptions): Promise<sub> {
+export default async function subInfo({ subReddit, excludeRaw = true }: subOptions): Promise<sub> {
     if (subReddit === null)
         return {
-            error: "No sub reddit",
+            error: "no subreddit",
         } as sub;
 
     const redditFetch: Response = await fetch(`https://www.reddit.com/r/${subReddit}/about.json`);
@@ -21,7 +21,7 @@ export default async function subInfo({ subReddit, excludeRaw }: subOptions): Pr
 
     if (redditInfo === null)
         return {
-            error: "No sub reddit found",
+            error: "no subreddit found",
         } as sub;
 
     return {

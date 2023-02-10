@@ -17,7 +17,7 @@ export type post = {
     awards: Array<any>;
     commentAmount: number;
     html: string | null;
-    raw: Object | null;
+    raw: any | null;
     error?: string;
 };
 

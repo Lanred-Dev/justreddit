@@ -7,13 +7,16 @@ export type defaultOptions = {
     excludeRaw?: boolean;
 };
 
-export type options = defaultOptions & {
-    sortType: string;
-    postGetLimit: number;
+export type sortType = {
+    sortType?: "new" | "top" | "hot" | "random" | "controversial" | "rising";
+}
+
+export type options = defaultOptions & sortType & {
+    postGetLimit?: number;
 };
 
-export type imageOptions = options & {
-    maxTries: number;
+export type imageOptions = defaultOptions & sortType & {
+    maxTries?: number;
 };
 
 export type subOptions = defaultOptions;

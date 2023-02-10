@@ -3,7 +3,7 @@ import response from "../types/response";
 import post from "../types/post";
 import options, { sortTypes } from "../types/options";
 
-export default async function randomPostFromSub({ subReddit, sortType, postGetLimit, excludeRaw }: options): Promise<post> {
+export default async function randomPostFromSub({ subReddit, sortType = "top", postGetLimit = 10, excludeRaw = true }: options): Promise<post> {
     if (subReddit === null)
         return {
             error: "No sub reddit",
@@ -31,7 +31,7 @@ export default async function randomPostFromSub({ subReddit, sortType, postGetLi
         } as post;
 
     return {
-        image: typeof post.url_overridden_by_dest === "string" ? post.url_overridden_by_dest : null,
+        image: typeof post?.url_overridden_by_dest === "string" ? post.url_overridden_by_dest : null,
         title: post.title,
         content: post.selftext,
         url: `https://www.reddit.com${post.permalink}`,
