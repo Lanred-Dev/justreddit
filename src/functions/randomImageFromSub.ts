@@ -13,7 +13,7 @@ export default async function randomImageFromSub({ subReddit, sortType = "top", 
     let tries: number = 0;
 
     while (typeof post !== null && tries <= maxTries) {
-        const randomPost: post = await randomPostFromSub({ subReddit, sortType, postGetLimit: 2, excludeRaw: false });
+        const randomPost: post = await randomPostFromSub({ subReddit, sortType, postGetLimit: 10, excludeRaw: false });
 
         if (typeof randomPost.raw.url === "string" && randomPost.raw.url.length > 0 && /\.(jpe?g|png|gif|bmp)$/i.test(randomPost.raw.url) === true) {
             post = randomPost;
