@@ -25,5 +25,5 @@ export default async function randomImageFromSub({ subReddit, sortType = "top", 
 
     if (post?.raw.is_gallery === true) return getImageFromGalleryPost(post);
 
-    return post?.raw.url.replace("gifv", "gif") as string;
+    return post === null ? "https://via.placeholder.com/150" : post?.raw.url.replace("gifv", "gif") as string;
 }
