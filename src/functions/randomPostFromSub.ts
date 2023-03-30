@@ -9,6 +9,8 @@ export default async function randomPostFromSub({ subReddit, sortType = "top", p
             error: "No sub reddit",
         } as post;
 
+    if (sortType === "random") sortType = sortTypes[Math.floor(Math.random() * sortTypes.length)] as unknown as any;
+
     if (sortTypes.includes(sortType) === false)
         return {
             error: `Invalid sort type: ${sortType}`,
@@ -22,7 +24,7 @@ export default async function randomPostFromSub({ subReddit, sortType = "top", p
             error: `reddit error: ${response.error}`,
         } as post;
 
-    const posts: Array<Array<{ [key: string]: string }>> = response.data.children.map((child: { data: any }) => child.data);
+    const posts: Array<Array<{ [key: string]: string }>> = response?.data?.children?.map((child: { data: any }) => child.data);
     const post: { [key: string]: any } | null = posts[Math.floor(Math.random() * posts.length)];
 
     if (post === null)

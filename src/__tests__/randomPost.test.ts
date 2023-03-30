@@ -3,7 +3,14 @@ import post from "../types/post";
 
 test("random post", async () => {
     const post: post = await randomPost({});
-    console.log(post)
+    console.log(post);
+    expect(post).toBeTruthy();
+    expect(typeof post).toBe("object");
+});
+
+test("random post - random sort", async () => {
+    const post: post = await randomPost({ sortType: "random" });
+    console.log(post);
     expect(post).toBeTruthy();
     expect(typeof post).toBe("object");
 });
