@@ -3,6 +3,7 @@
 
 A simple package for getting random posts, random images, random SubReddits, and SubReddit info.
 
+## IMPORTANT: justreddit will be entering maintenance mode soon. This does not mean that the package will stop being supported! Just do not expect any new features/breaking changes in the future.
 
 ## Installation
 
