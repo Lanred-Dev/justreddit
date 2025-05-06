@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es2019",
+        "target": "ES2024",
         "module": "commonjs",
         "declaration": true,
-        "outDir": "build",
+        "outDir": "./build",
         "strict": true,
-        "lib": ["es2016"],
-        "allowJs": true
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
     },
-    "include": ["src"],
+    "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]
 }
