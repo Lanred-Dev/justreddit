@@ -144,7 +144,7 @@ export interface Subreddit {
     }
 }
 
-export default async function get(subreddit: string): Promise<Subreddit> {
+export async function get(subreddit: string): Promise<Subreddit> {
     const response: RedditSubreddit = await fetch(subreddit);
     const { id, url, display_name, description, over18, lang, active_user_count, allow_images, allow_videos, allow_polls, allow_videogifs, allow_discovery, allow_galleries, should_show_media_in_comments_setting, allow_predictions, allow_talks, accept_followers, subscribers, community_reviewed, emojis_enabled, restrict_posting, all_original_content, created, banner_background_image, mobile_banner_image, primary_color, key_color } = response.data;
 
