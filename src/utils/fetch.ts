@@ -3,8 +3,9 @@ interface RedditError {
     error: string;
 }
 
-export default async function fetch(path: string): Promise<any> {
-    const response: Response = await fetch(`https://www.reddit.com/r/${path}.json`);
+export default async function fetch(path: string, prefix: "user" | "r" = "r"): Promise<any> {
+    path = `${prefix}/${path}.json`
+    const response: Response = await fetch(`https://www.reddit.com/${path}`);
 
     if (!response.ok || response.status !== 200) throw new Error(`Could not fetch data from path (${path}): ${response.statusText}`);
 
