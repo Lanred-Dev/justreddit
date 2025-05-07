@@ -140,6 +140,7 @@ export interface Post {
     author: string;
     title: string;
     body: string;
+    image: string | null;
     created: Date;
     likes: number;
     dislikes: number;
@@ -152,13 +153,16 @@ export interface Post {
     isOriginalContent: boolean;
 }
 
-function parsePost({ subreddit, over_18, locked, media_only, pinned, author, id, archived, edited, ups, is_original_content, downs, selftext, title, created }: RedditPost["data"]): Post {
+const IMAGE_EXTENSIONS: string[] = ["jpg", "jpeg", "png", "gif", "webp"];
+
+function parsePost({ subreddit, over_18, locked, media_only, pinned, author, id, archived, edited, ups, is_original_content, downs, selftext, title, created, url }: RedditPost["data"]): Post {
     return {
         subreddit,
         id,
         author,
         title,
         body: selftext,
+        image: IMAGE_EXTENSIONS.some((extension) => url.toLowerCase().endsWith(`.${extension}`)) ? url : null,
         created: new Date(created * 1000),
         likes: ups,
         dislikes: downs,
@@ -182,7 +186,7 @@ type SortingOption = "hot" | "new" | "top" | "rising";
 const sortingOptions: SortingOption[] = ["hot", "new", "top", "rising"];
 
 export async function randomPost(subreddit?: string, sortingOption: SortingOption = "top"): Promise<Post> {
-    if (!sortingOptions.includes(sortingOption)) throw new Error(`Invalid sorting option. Valid options are: ${sortingOptions.join(", ")}`);
+    if (!sortingOptions.includes(sortingOption)) throw new TypeError(`Invalid sorting option. Valid options are: ${sortingOptions.join(", ")}`);
 
     const response: RedditRandomPostResponse = await fetch(subreddit ? `${subreddit}/${sortingOption}` : `best`);
     const posts: RedditPost[] = response.data.children.filter((post) => post.kind === "t3");
