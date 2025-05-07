@@ -29,9 +29,9 @@ And now you're ready to start using **justreddit** 😎
 
 ## Usage
 
-##### Subreddits
+#### Subreddits
 
-Getting a subreddit's information
+Getting a subreddit's information:
 
 ```ts
 # NOTE: Replace `javascript` with the name of your subreddit
@@ -44,9 +44,9 @@ Or want to change it up and get a random subreddit?
 justreddit.randomSubreddit();
 ```
 
-##### Posts
+#### Posts
 
-Getting a post's information
+Getting a post's information:
 
 ```ts
 # Note: Replace `javascript` with the name of your subreddit
@@ -62,9 +62,9 @@ Don't have a post in mind? In that case, you can get a random one:
 justreddit.randomPost(subreddit, sortingOption)
 ```
 
-##### Comments
+#### Comments
 
-Getting a comment's information
+Getting a comment's information:
 
 ```ts
 # Note: Replace `javascript` with the name of your subreddit
