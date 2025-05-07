@@ -1,9 +1,9 @@
-import {get as subreddit} from "./Subreddit";
-import { get as post } from "./Post";
-import { get as reply } from "./Reply";
-import {get as user} from "./User";
+import { subreddit, randomSubreddit } from "./Subreddit";
+import { post, randomPost } from "./Post";
+import { reply } from "./Reply";
+import { user } from "./User";
 
-export { subreddit, post, reply, user };
+export { subreddit, randomSubreddit, post, randomPost, reply, user };
 
 export type { Subreddit } from "./Subreddit";
 export type { Post } from "./Post";
