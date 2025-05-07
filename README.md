@@ -1,151 +1,83 @@
-
 # justreddit
 
-A simple package for getting random posts, random images, random SubReddits, and SubReddit info.
+This is a simple, no-dependency Reddit API wrapper for getting post, comment, and subreddit metadata. This package does not provide authorization functionality for the Reddit API; it simply uses public endpoints.
 
-## Installation
+---
 
-Current release (3.0.0+) requires Node.js 12.20.0 at minimum.
+## Getting Started
+
+> Current release (**5.0.0+**) requires **Node.js 21.0.0** at minimum.
+
+First, install **justreddit** using this npm command:
+
 ```sh
 npm i justreddit
 ```
 
-## Requiring
-CommonJS
-```js
-const justreddit = require("justreddit");
-```
+Next, import it into your project:
 
-ESM
 ```js
+# CommonJS
+const justreddit = require("justreddit");
+# ESM
 import justreddit from "justreddit";
 ```
 
+And now you're ready to start using **justreddit** 😎
+
+---
+
 ## Usage
-#### Note: options are in dictionary form.
 
-#### Getting a random post
-```js
-/*
-    # Options
+##### Subreddits
 
-    subReddit: string
-    The name of the SubReddit. Only allowed on "randomPostFromSub" function.
+Getting a subreddit's information
 
-    sortType: "new", "top", "hot", "random", "controversial", "rising"
-    How the posts should be sorted when searching.
-
-    postGetLimit: number
-    The amount of posts that can be chosen from.
-
-    excludeRaw?: boolean
-    Whether to exclude the raw data from the response.
-*/
-
-justreddit.randomPost({ ...options });
-justreddit.randomPostFromSub({ ...options }); // with a specified SubReddit
-
-/*
-    # Returns a dictionary
-
-    {
-        image: string | null;
-        title: string;
-        content: string;
-        url: string;
-        subreddit: string;
-        author: string;
-        upvotes: number;
-        downvotes: number;
-        upvoteRatio: number;
-        nsfw: boolean;
-        createdUTC: number;
-        category: string | null;
-        thumbnail: string | null;
-        pinned: boolean;
-        archived: boolean;
-        awards: Array<any>;
-        commentAmount: number;
-        html: string | null;
-        raw: Object | null;
-        error?: string;
-    }
-*/
+```ts
+# NOTE: Replace `javascript` with the name of your subreddit
+justreddit.subreddit("javascript")
 ```
 
-#### Getting a random image
-```js
-/*
-    # Options
+Or want to change it up and get a random subreddit?
 
-    subReddit: string
-    The name of the SubReddit. Only allowed on "randomImageFromSub" function.
-
-    sortType: "new", "top", "hot", "random", "controversial", "rising"
-    How the posts should be sorted when searching.
-
-    postGetLimit: number
-    The amount of posts that can be chosen from.
-*/
-
-justreddit.randomImage({ ...options });
-justreddit.randomImageFromSub({ ...options }); // with a specified SubReddit
-
-//# Returns a string | null (if no image is found)
+```ts
+justreddit.randomSubreddit();
 ```
 
-#### Getting a random SubReddit
-```js
-justreddit.randomSub();
+##### Posts
 
-//# Returns a string
+Getting a post's information
+
+```ts
+# Note: Replace `javascript` with the name of your subreddit
+# Note: Replace `6hz7o6` with the ID of your post
+justreddit.post("javascript", "6hz7o6")
 ```
 
-#### Getting SubReddit info
-```js
-/*
-    # Options
+Don't have a post in mind? In that case, you can get a random one:
 
-    subReddit: string
-    The name of the SubReddit. Only allowed on "randomSubInfo" function.
-
-    excludeRaw?: boolean
-    Whether to exclude the raw data from the response.
-*/
-
-justreddit.subInfo({ ...options });
-justreddit.randomSubInfo({ ...options }); // with a specified SubReddit
-
-/*
-    # Returns a dictionary
-
-    {
-        subreddit: string;
-        title: string;
-        description: string;
-        url: string;
-        primaryColor: string;
-        keyColor: string;
-        type: string;
-        icon: string;
-        userCount: number;
-        activeUserCount: number;
-        banner: string;
-        mobileBanner: string;
-        bannerColor: string;
-        emojisEnabled: boolean;
-        nsfw: boolean;
-        createdUTC: number;
-        crossPostable: boolean;
-        raw?: Object | null;
-        error?: string;
-    }
-*/
+```ts
+# Note: Both `subreddit` and `sortingOption` are optional parameters
+# `randomPost` will get the top posts from all of Reddit if no subreddit is provided.
+justreddit.randomPost(subreddit, sortingOption)
 ```
+
+##### Comments
+
+Getting a comment's information
+
+```ts
+# Note: Replace `javascript` with the name of your subreddit
+# Note: Replace `6hz7o6` with the ID of your post
+# Note: Replace `dj2ky54` with the ID of your comment
+justreddit.comment("javascript", "6hz7o6", "dj2ky54")
+```
+
+---
 
 ## License
 
-Copyright © 2022 Lanred
+Copyright © 2025 Landon Redmond
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
