@@ -1,6 +1,6 @@
 import fetch from "./utils/fetch";
 
-interface RedditResponse {
+interface RedditUserResponse {
     kind: "t2";
     data: {
         is_employee: boolean;
@@ -88,8 +88,8 @@ export interface User {
     acceptingFollowers: boolean;
 }
 
-export async function get(name: string): Promise<User> {
-    const response: RedditResponse = await fetch(`${name}/about.json`, "user");
+export async function user(name: string): Promise<User> {
+    const response: RedditUserResponse = await fetch(`${name}/about.json`, "user");
     const { is_employee, is_gold, id, created, total_karma, comment_karma, link_karma, verified, accept_followers, snoovatar_img } = response.data;
 
     return {
