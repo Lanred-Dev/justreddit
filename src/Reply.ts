@@ -110,7 +110,7 @@ export interface Reply {
     archived: boolean;
 }
 
-export async function get(subreddit: string, postID: string, replyID: string): Promise<Reply> {
+export async function reply(subreddit: string, postID: string, replyID: string): Promise<Reply> {
     const response: RedditResponse[] = await fetch(`${subreddit}/comments/${postID}/comments/${replyID}`);
     const { author, created, body, is_submitter, ups, downs, archived } = (response[1].data.children[0] as RedditReply).data;
 
@@ -125,5 +125,5 @@ export async function get(subreddit: string, postID: string, replyID: string): P
         likes: ups,
         dislikes: downs,
         archived,
-    }
+    };
 }
