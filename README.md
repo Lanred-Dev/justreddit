@@ -35,7 +35,7 @@ Getting a subreddit's information:
 
 ```ts
 # NOTE: Replace `javascript` with the name of your subreddit
-justreddit.subreddit("javascript")
+justreddit.subreddit("javascript");
 ```
 
 Or want to change it up and get a random subreddit?
@@ -51,7 +51,7 @@ Getting a post's information:
 ```ts
 # Note: Replace `javascript` with the name of your subreddit
 # Note: Replace `6hz7o6` with the ID of your post
-justreddit.post("javascript", "6hz7o6")
+justreddit.post("javascript", "6hz7o6");
 ```
 
 Don't have a post in mind? In that case, you can get a random one:
@@ -59,7 +59,7 @@ Don't have a post in mind? In that case, you can get a random one:
 ```ts
 # Note: Both `subreddit` and `sortingOption` are optional parameters
 # `randomPost` will get the top posts from all of Reddit if no subreddit is provided.
-justreddit.randomPost(subreddit, sortingOption)
+justreddit.randomPost(subreddit, sortingOption);
 ```
 
 #### Comments
@@ -70,7 +70,7 @@ Getting a comment's information:
 # Note: Replace `javascript` with the name of your subreddit
 # Note: Replace `6hz7o6` with the ID of your post
 # Note: Replace `dj2ky54` with the ID of your comment
-justreddit.comment("javascript", "6hz7o6", "dj2ky54")
+justreddit.comment("javascript", "6hz7o6", "dj2ky54");
 ```
 
 ---
