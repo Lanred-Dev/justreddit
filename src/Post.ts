@@ -181,7 +181,7 @@ type SortingOption = "hot" | "new" | "top" | "rising";
 
 const sortingOptions: SortingOption[] = ["hot", "new", "top", "rising"];
 
-export async function randomPost(subreddit?: string, sortingOption: SortingOption = "top") {
+export async function randomPost(subreddit?: string, sortingOption: SortingOption = "top"): Promise<Post> {
     if (!sortingOptions.includes(sortingOption)) throw new Error(`Invalid sorting option. Valid options are: ${sortingOptions.join(", ")}`);
 
     const response: RedditRandomPostResponse = await fetch(subreddit ? `${subreddit}/${sortingOption}` : `best`);
