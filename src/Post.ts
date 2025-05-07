@@ -112,8 +112,19 @@ export interface RedditPost {
     };
 }
 
-interface RedditResponse {
-    kind: string;
+interface RedditPostResponse {
+    kind: "Listing";
+    data: {
+        after: null;
+        dist: number;
+        modhash: string;
+        geo_filter: string;
+        children: RedditPost[];
+    };
+}
+
+interface RedditRandomPostResponse {
+    kind: "Listing";
     data: {
         after: null;
         dist: number;
@@ -141,10 +152,7 @@ export interface Post {
     isOriginalContent: boolean;
 }
 
-export async function get(subreddit: string, postID: string): Promise<Post> {
-    const response: RedditResponse[] = await fetch(`${subreddit}/comments/${postID}`);
-    const { over_18, locked, media_only, pinned, author, id, archived, edited, ups, is_original_content, downs, selftext, title, created } = (response[0].data.children[0] as RedditPost).data;
-
+function parsePost({ subreddit, over_18, locked, media_only, pinned, author, id, archived, edited, ups, is_original_content, downs, selftext, title, created }: RedditPost["data"]): Post {
     return {
         subreddit,
         id,
@@ -162,4 +170,21 @@ export async function get(subreddit: string, postID: string): Promise<Post> {
         edited,
         isOriginalContent: is_original_content,
     };
+}
+
+export async function post(subreddit: string, postID: string): Promise<Post> {
+    const response: RedditPostResponse[] = await fetch(`${subreddit}/comments/${postID}`);
+    return parsePost((response[0].data.children[0] as RedditPost).data);
+}
+
+type SortingOption = "hot" | "new" | "top" | "rising";
+
+const sortingOptions: SortingOption[] = ["hot", "new", "top", "rising"];
+
+export async function randomPost(subreddit?: string, sortingOption: SortingOption = "top") {
+    if (!sortingOptions.includes(sortingOption)) throw new Error(`Invalid sorting option. Valid options are: ${sortingOptions.join(", ")}`);
+
+    const response: RedditRandomPostResponse = await fetch(subreddit ? `${subreddit}/${sortingOption}` : `best`);
+    const posts: RedditPost[] = response.data.children.filter((post) => post.kind === "t3");
+    return parsePost(posts[Math.floor(Math.random() * posts.length)].data);
 }
