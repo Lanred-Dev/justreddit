@@ -1,6 +1,7 @@
-import fetch from "./utils/fetch";
+import fetchEndpoint from "./utils/fetchEndpoint";
+import validateOption from "./utils/validateOption";
 
-interface RedditSubreddit {
+interface RedditSub {
     kind: "t5";
     data: {
         user_flair_background_color: string | null;
@@ -115,11 +116,11 @@ interface RedditPopularSubredditsResponse {
         dist: number;
         modhash: string | null;
         geo_filter: string | null;
-        children: RedditSubreddit[];
+        children: RedditSub[];
     };
 }
 
-export interface Subreddit {
+export interface Sub {
     id: string;
     url: string;
     language: string;
@@ -155,7 +156,7 @@ export interface Subreddit {
     };
 }
 
-function parseSubreddit({ id, url, display_name, description, over18, lang, active_user_count, allow_images, allow_videos, allow_polls, allow_videogifs, allow_discovery, allow_galleries, should_show_media_in_comments_setting, allow_predictions, allow_talks, accept_followers, subscribers, community_reviewed, emojis_enabled, restrict_posting, all_original_content, created, banner_background_image, mobile_banner_image, primary_color, key_color }: RedditSubreddit["data"]): Subreddit {
+function parseSub({ id, url, display_name, description, over18, lang, active_user_count, allow_images, allow_videos, allow_polls, allow_videogifs, allow_discovery, allow_galleries, should_show_media_in_comments_setting, allow_predictions, allow_talks, accept_followers, subscribers, community_reviewed, emojis_enabled, restrict_posting, all_original_content, created, banner_background_image, mobile_banner_image, primary_color, key_color }: RedditSub["data"]): Sub {
     return {
         id,
         url: `https://www.reddit.com/${url}`,
@@ -193,13 +194,25 @@ function parseSubreddit({ id, url, display_name, description, over18, lang, acti
     };
 }
 
-export async function subreddit(subreddit: string): Promise<Subreddit> {
-    const response: RedditSubreddit = await fetch(subreddit);
-    return parseSubreddit(response.data);
+export async function sub(subreddit: string): Promise<Sub> {
+    const response: RedditSub = await fetchEndpoint(subreddit);
+    return parseSub(response.data);
 }
 
-export async function randomSubreddit(): Promise<Subreddit> {
-    const response: RedditPopularSubredditsResponse = await fetch("subreddits/popular");
-    const subreddits: RedditSubreddit[] = response.data.children.filter((subreddit) => subreddit.kind === "t5");
-    return parseSubreddit(subreddits[Math.floor(Math.random() * subreddits.length)].data);
+export enum RandomSubSortingMethod {
+    popular = "popular",
+    new = "new",
+    default = "default",
 }
+
+export async function randomSub(method: RandomSubSortingMethod = RandomSubSortingMethod.popular): Promise<Sub> {
+    validateOption(method, RandomSubSortingMethod, "random sub sorting method");
+
+    const response: RedditPopularSubredditsResponse = await fetchEndpoint(`subreddits/${method}`);
+    const subs: RedditSub[] = response.data.children.filter((subreddit) => subreddit.kind === "t5");
+    return parseSub(subs[Math.floor(Math.random() * subs.length)].data);
+}
+
+// For backwards compatibility
+export const randomSubreddit = randomSub;
+export const subreddit = sub;
