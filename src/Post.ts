@@ -1,4 +1,5 @@
-import fetch from "./utils/fetch";
+import fetchEndpoint from "./utils/fetchEndpoint";
+import validateOption from "./utils/validateOption";
 
 export interface RedditPost {
     kind: "t1" | "t3";
@@ -177,18 +178,21 @@ function parsePost({ subreddit, over_18, locked, media_only, pinned, author, id,
 }
 
 export async function post(subreddit: string, postID: string): Promise<Post> {
-    const response: RedditPostResponse[] = await fetch(`${subreddit}/comments/${postID}`);
+    const response: RedditPostResponse[] = await fetchEndpoint(`${subreddit}/comments/${postID}`);
     return parsePost((response[0].data.children[0] as RedditPost).data);
 }
 
-type SortingOption = "hot" | "new" | "top" | "rising";
+export enum RandomPostSortingMethod {
+    popular = "hot",
+    new = "new",
+    top = "top",
+    rising = "rising",
+}
 
-const sortingOptions: SortingOption[] = ["hot", "new", "top", "rising"];
+export async function randomPost(subreddit?: string, method: RandomPostSortingMethod = RandomPostSortingMethod.top): Promise<Post> {
+    validateOption(method, RandomPostSortingMethod, "sorting option");
 
-export async function randomPost(subreddit?: string, sortingOption: SortingOption = "top"): Promise<Post> {
-    if (!sortingOptions.includes(sortingOption)) throw new TypeError(`Invalid sorting option. Valid options are: ${sortingOptions.join(", ")}`);
-
-    const response: RedditRandomPostResponse = await fetch(subreddit ? `${subreddit}/${sortingOption}` : `best`);
+    const response: RedditRandomPostResponse = await fetchEndpoint(subreddit ? `${subreddit}/${method}` : `best`);
     const posts: RedditPost[] = response.data.children.filter((post) => post.kind === "t3");
     return parsePost(posts[Math.floor(Math.random() * posts.length)].data);
 }

@@ -1,4 +1,4 @@
-import fetch from "./utils/fetch";
+import fetchEndpoint from "./utils/fetchEndpoint";
 
 interface RedditUserResponse {
     kind: "t2";
@@ -89,7 +89,7 @@ export interface User {
 }
 
 export async function user(name: string): Promise<User> {
-    const response: RedditUserResponse = await fetch(`${name}/about.json`, "user");
+    const response: RedditUserResponse = await fetchEndpoint(`${name}/about.json`, "user");
     const { is_employee, is_gold, id, created, total_karma, comment_karma, link_karma, verified, accept_followers, snoovatar_img } = response.data;
 
     return {

@@ -1,5 +1,5 @@
 import { RedditPost } from "./Post";
-import fetch from "./utils/fetch";
+import fetchEndpoint from "./utils/fetchEndpoint";
 
 interface RedditReply {
     kind: "t1";
@@ -111,7 +111,7 @@ export interface Reply {
 }
 
 export async function reply(subreddit: string, postID: string, replyID: string): Promise<Reply> {
-    const response: RedditResponse[] = await fetch(`${subreddit}/comments/${postID}/comments/${replyID}`);
+    const response: RedditResponse[] = await fetchEndpoint(`${subreddit}/comments/${postID}/comments/${replyID}`);
     const { author, created, body, is_submitter, ups, downs, archived } = (response[1].data.children[0] as RedditReply).data;
 
     return {
