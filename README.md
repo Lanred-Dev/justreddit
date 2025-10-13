@@ -1,6 +1,6 @@
 # justreddit
 
-This is a simple, no-dependency Reddit API wrapper for getting post, comment, and subreddit metadata. This package does not provide authorization functionality for the Reddit API; it simply uses public endpoints.
+This is a simple, no-dependency Reddit API wrapper for getting post, comment, and sub metadata. This package does not provide authorization functionality for the Reddit API; it simply uses public endpoints.
 
 ---
 
@@ -35,13 +35,13 @@ Getting a subreddit's information:
 
 ```ts
 # NOTE: Replace `javascript` with the name of your subreddit
-justreddit.subreddit("javascript");
+justreddit.sub("javascript");
 ```
 
 Or want to change it up and get a random subreddit?
 
 ```ts
-justreddit.randomSubreddit();
+justreddit.randomSub();
 ```
 
 #### Posts
