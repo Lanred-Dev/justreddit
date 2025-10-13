@@ -5,9 +5,9 @@
  * @param prefix
  * @returns The data from the endpoint
  */
-export default async function fetchEndpoint(path: string, prefix: "user" | "r" = "r"): Promise<any> {
+export default async function fetchEndpoint(path: string, prefix: "user" | "r" | null): Promise<any> {
     // The Reddit API uses .json at the end of paths to return JSON data
-    path = `${prefix}/${path}.json`;
+    path = `${prefix ? `${prefix}/` : ""}${path}.json`;
 
     // NOTE: www.reddit.com is used because using reddit.com redirects to www anyways
     const response: Response = await fetch(`https://www.reddit.com/${path}`);
