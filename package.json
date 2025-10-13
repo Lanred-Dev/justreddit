@@ -13,9 +13,11 @@
         "subreddit"
     ],
     "scripts": {
+        "prepublishOnly": "npm test",
         "prepare": "npm run build",
         "build": "tsc",
-        "postversion": "git push && git push --tags"
+        "postversion": "git push && git push --tags",
+        "test": "jest"
     },
     "files": [
         "build/**/*"
@@ -27,8 +29,10 @@
     },
     "license": "MIT",
     "devDependencies": {
+        "@types/jest": "^30.0.0",
         "@types/node": "^24.0.10",
+        "jest": "^29.7.0",
         "ts-jest": "^29.4.5",
-        "typescript": "^5.8.3"
+        "typescript": "^5.9.3"
     }
 }
