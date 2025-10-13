@@ -98,8 +98,8 @@ interface RedditResponse {
 }
 
 export interface Reply {
-    subreddit: string;
-    postID: string;
+    sub: string;
+    post: string;
     id: string;
     author: string;
     created: Date;
@@ -110,14 +110,31 @@ export interface Reply {
     archived: boolean;
 }
 
-export async function reply(subreddit: string, postID: string, replyID: string): Promise<Reply> {
-    const response: RedditResponse[] = await fetchEndpoint(`${subreddit}/comments/${postID}/comments/${replyID}`);
+/**
+ * Fetches information about a specific reply (comment) on a Reddit post.
+ *
+ * @param sub - The subreddit name (without the `r/` prefix).
+ * @param post - The post ID or identifier.
+ * @param reply - The reply (comment) ID to fetch.
+ * @returns A Promise that resolves to a {@link Reply} object with the reply's details.
+ *
+ * @example
+ * ```ts
+ * import { reply } from "justreddit";
+ *
+ * const comment = await reply("javascript", "abc123", "def456");
+ * console.log(comment.body);
+ * // → "I totally agree with this!"
+ * ```
+ */
+export async function reply(sub: string, post: string, reply: string): Promise<Reply> {
+    const response: RedditResponse[] = await fetchEndpoint(`${sub}/comments/${post}/comments/${reply}`, "r");
     const { author, created, body, is_submitter, ups, downs, archived } = (response[1].data.children[0] as RedditReply).data;
 
     return {
-        subreddit,
-        postID,
-        id: replyID,
+        sub,
+        post,
+        id: reply,
         author,
         created: new Date(created * 1000),
         body,

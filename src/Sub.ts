@@ -159,7 +159,7 @@ export interface Sub {
 function parseSub({ id, url, display_name, description, over18, lang, active_user_count, allow_images, allow_videos, allow_polls, allow_videogifs, allow_discovery, allow_galleries, should_show_media_in_comments_setting, allow_predictions, allow_talks, accept_followers, subscribers, community_reviewed, emojis_enabled, restrict_posting, all_original_content, created, banner_background_image, mobile_banner_image, primary_color, key_color }: RedditSub["data"]): Sub {
     return {
         id,
-        url: `https://www.reddit.com/${url}`,
+        url: `https://reddit.com/${url}`,
         language: lang,
         name: display_name,
         description,
@@ -194,25 +194,64 @@ function parseSub({ id, url, display_name, description, over18, lang, active_use
     };
 }
 
-export async function sub(subreddit: string): Promise<Sub> {
-    const response: RedditSub = await fetchEndpoint(subreddit);
+/**
+ * Fetches information about a subreddit.
+ *
+ * @param name - The subreddit name (without the `r/` prefix).
+ * @returns A Promise that resolves to a {@link Sub} object with the subreddit's details.
+ *
+ * @example
+ * ```ts
+ * import { sub } from "justreddit";
+ *
+ * const subreddit = await sub("javascript");
+ * console.log(subreddit.title);
+ * // → "r/javascript"
+ * ```
+ */
+export async function sub(name: string): Promise<Sub> {
+    const response: RedditSub = await fetchEndpoint(`${name}/about`, "r");
     return parseSub(response.data);
 }
 
+/**
+ * Sorting methods for fetching random subreddits.
+ */
 export enum RandomSubSortingMethod {
     popular = "popular",
     new = "new",
     default = "default",
 }
 
+/**
+ * Fetches a random subreddit using a specified sorting method.
+ *
+ * @param method - The sorting method to use when selecting a random subreddit.
+ * @returns A Promise that resolves to a randomly selected {@link Sub}.
+ *
+ * @example
+ * ```ts
+ * import { randomSub, RandomSubSortingMethod } from "justreddit";
+ *
+ * const random = await randomSub(RandomSubSortingMethod.new);
+ * console.log(random.name);
+ * // → e.g., "r/javascript"
+ * ```
+ */
 export async function randomSub(method: RandomSubSortingMethod = RandomSubSortingMethod.popular): Promise<Sub> {
     validateOption(method, RandomSubSortingMethod, "random sub sorting method");
 
-    const response: RedditPopularSubredditsResponse = await fetchEndpoint(`subreddits/${method}`);
-    const subs: RedditSub[] = response.data.children.filter((subreddit) => subreddit.kind === "t5");
+    const response: RedditPopularSubredditsResponse = await fetchEndpoint(`subreddits/${method}`, null);
+    const subs: RedditSub[] = response.data.children.filter(({ kind }) => kind === "t5");
     return parseSub(subs[Math.floor(Math.random() * subs.length)].data);
 }
 
-// For backwards compatibility
+/**
+ * @deprecated Use {@link randomSub} instead.
+ */
 export const randomSubreddit = randomSub;
+
+/**
+ * @deprecated Use {@link sub} instead.
+ */
 export const subreddit = sub;

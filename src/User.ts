@@ -75,6 +75,7 @@ interface RedditUserResponse {
 export interface User {
     name: string;
     avatar: string;
+    url: string;
     id: string;
     isEmployee: boolean;
     isGold: boolean;
@@ -88,13 +89,29 @@ export interface User {
     acceptingFollowers: boolean;
 }
 
+/**
+ * Fetches detailed profile information about a Reddit user.
+ *
+ * @param name - The Reddit username (without the `/u/` or `/user/` prefix).
+ * @returns A Promise that resolves to a {@link User} object with the user's information.
+ *
+ * @example
+ * ```ts
+ * import { user } from "justreddit";
+ *
+ * const profile = await user("spez");
+ * console.log(profile.karma.total);
+ * // → e.g., 15423
+ * ```
+ */
 export async function user(name: string): Promise<User> {
-    const response: RedditUserResponse = await fetchEndpoint(`${name}/about.json`, "user");
-    const { is_employee, is_gold, id, created, total_karma, comment_karma, link_karma, verified, accept_followers, snoovatar_img } = response.data;
+    const response: RedditUserResponse = await fetchEndpoint(`${name}/about`, "user");
+    const { is_employee, is_gold, id, created, total_karma, comment_karma, link_karma, verified, accept_followers, icon_img } = response.data;
 
     return {
         name,
-        avatar: snoovatar_img,
+        url: `https://reddit.com/user/${name}`,
+        avatar: icon_img,
         id,
         isEmployee: is_employee,
         isGold: is_gold,

@@ -136,7 +136,8 @@ interface RedditRandomPostResponse {
 }
 
 export interface Post {
-    subreddit: string;
+    url: string;
+    sub: string;
     id: string;
     author: string;
     title: string;
@@ -158,7 +159,8 @@ const IMAGE_EXTENSIONS: string[] = ["jpg", "jpeg", "png", "gif", "webp"];
 
 function parsePost({ subreddit, over_18, locked, media_only, pinned, author, id, archived, edited, ups, is_original_content, downs, selftext, title, created, url }: RedditPost["data"]): Post {
     return {
-        subreddit,
+        url: `https://reddit.com/r/${subreddit}/comments/${id}`,
+        sub: subreddit,
         id,
         author,
         title,
@@ -177,11 +179,30 @@ function parsePost({ subreddit, over_18, locked, media_only, pinned, author, id,
     };
 }
 
+/**
+ * Fetches information about a Reddit post.
+ *
+ * @param subreddit - The subreddit name (without the `r/` prefix).
+ * @param postID - The ID of the post to fetch.
+ * @returns A Promise that resolves to a {@link Post} object with the post's details.
+ *
+ * @example
+ * ```ts
+ * import { post } from "justreddit";
+ *
+ * const p = await post("javascript", "abc123");
+ * console.log(p.title);
+ * // → "Check out this cool JS trick!"
+ * ```
+ */
 export async function post(subreddit: string, postID: string): Promise<Post> {
-    const response: RedditPostResponse[] = await fetchEndpoint(`${subreddit}/comments/${postID}`);
+    const response: RedditPostResponse[] = await fetchEndpoint(`${subreddit}/comments/${postID}`, "r");
     return parsePost((response[0].data.children[0] as RedditPost).data);
 }
 
+/**
+ * Sorting methods for fetching random posts.
+ */
 export enum RandomPostSortingMethod {
     popular = "hot",
     new = "new",
@@ -189,10 +210,26 @@ export enum RandomPostSortingMethod {
     rising = "rising",
 }
 
+/**
+ * Fetches a random Reddit post, optionally from a specific subreddit.
+ *
+ * @param subreddit - (Optional) The subreddit name to fetch a post from.
+ * @param method - The sorting method to use when selecting a random post.
+ * @returns A Promise that resolves to a randomly selected {@link Post}.
+ *
+ * @example
+ * ```ts
+ * import { randomPost, RandomPostSortingMethod } from "justreddit";
+ *
+ * const random = await randomPost("javascript", RandomPostSortingMethod.rising);
+ * console.log(random.title);
+ * // → "New trick in JS you should see!"
+ * ```
+ */
 export async function randomPost(subreddit?: string, method: RandomPostSortingMethod = RandomPostSortingMethod.top): Promise<Post> {
     validateOption(method, RandomPostSortingMethod, "sorting option");
 
-    const response: RedditRandomPostResponse = await fetchEndpoint(subreddit ? `${subreddit}/${method}` : `best`);
+    const response: RedditRandomPostResponse = await fetchEndpoint(subreddit ? `${subreddit}/${method}` : `best`, "r");
     const posts: RedditPost[] = response.data.children.filter((post) => post.kind === "t3");
     return parsePost(posts[Math.floor(Math.random() * posts.length)].data);
 }
