@@ -124,7 +124,7 @@ interface RedditPostResponse {
   };
 }
 
-interface RedditRandomPostResponse {
+interface RedditPostsResponse {
   kind: "Listing";
   data: {
     after: null;
@@ -256,7 +256,7 @@ export async function randomPost(
 ): Promise<Post> {
   validateOption(method, RandomPostSortingMethod, "sorting option");
 
-  const response: RedditRandomPostResponse = await fetchEndpoint(
+  const response: RedditPostsResponse = await fetchEndpoint(
     sub ? `${sub}/${method}` : `best`,
     "r"
   );
