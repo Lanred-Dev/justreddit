@@ -1,6 +1,6 @@
 # justreddit
 
-This is a simple, no-dependency Reddit API wrapper for getting post, comment, and sub metadata. This package does not provide authorization functionality for the Reddit API; it simply uses public endpoints.
+This is a simple, no-dependency Reddit API wrapper for getting post, comment, and subreddit metadata. This package does not provide authorization functionality for the Reddit API; it simply uses public endpoints.
 
 ---
 
