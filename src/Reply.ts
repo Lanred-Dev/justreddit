@@ -128,8 +128,13 @@ export interface Reply {
  * ```
  */
 export async function reply(sub: string, post: string, reply: string): Promise<Reply> {
-    const response: RedditResponse[] = await fetchEndpoint(`${sub}/comments/${post}/comments/${reply}`, "r");
-    const { author, created, body, is_submitter, ups, downs, archived } = (response[1].data.children[0] as RedditReply).data;
+    const response: RedditResponse[] = await fetchEndpoint(
+        `${sub}/comments/${post}/comments/${reply}`,
+        "r"
+    );
+    const { author, created, body, is_submitter, ups, downs, archived } = (
+        response[1].data.children[0] as RedditReply
+    ).data;
 
     return {
         sub,

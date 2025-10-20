@@ -1,11 +1,22 @@
-import { subreddit, randomSubreddit, randomSub, sub, RandomSubSortingMethod } from "./Sub";
 import { post, randomPost, RandomPostSortingMethod } from "./Post";
 import { reply } from "./Reply";
+import { randomSub, randomSubreddit, RandomSubSortingMethod, sub, subreddit } from "./Sub";
 import { user } from "./User";
 
-export { subreddit, randomSubreddit, randomSub, sub, post, randomPost, reply, user, RandomSubSortingMethod, RandomPostSortingMethod };
+export {
+    post,
+    randomPost,
+    RandomPostSortingMethod,
+    randomSub,
+    randomSubreddit,
+    RandomSubSortingMethod,
+    reply,
+    sub,
+    subreddit,
+    user,
+};
 
-export type { Sub } from "./Sub";
 export type { Post } from "./Post";
 export type { Reply } from "./Reply";
+export type { Sub } from "./Sub";
 export type { User } from "./User";

@@ -1,5 +1,5 @@
 import { suite } from "node:test";
-import { Post, Sub, User, post, user, sub } from "../src/index";
+import { Post, Sub, User, post, sub, user } from "../src/index";
 import { isValidPost, isValidSub, isValidUser } from "./utils";
 
 suite("Fetch Tests", () => {

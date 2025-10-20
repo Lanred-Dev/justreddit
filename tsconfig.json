@@ -6,7 +6,7 @@
         "outDir": "./build",
         "strict": true,
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]

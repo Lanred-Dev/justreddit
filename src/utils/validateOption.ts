@@ -5,7 +5,14 @@
  * @param options
  * @param name
  */
-export default function validateOption<T extends Record<string, string | number>>(value: any, options: T, name: string): void {
+export default function validateOption<T extends Record<string, string | number>>(
+    value: any,
+    options: T,
+    name: string
+): void {
     const values = Object.values(options);
-    if (!values.includes(value)) throw new TypeError(`${value} is an invalid ${name} value. Valid ones are: ${values.join(", ")}`);
+    if (!values.includes(value))
+        throw new TypeError(
+            `${value} is an invalid ${name} value. Valid ones are: ${values.join(", ")}`
+        );
 }

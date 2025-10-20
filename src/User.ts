@@ -106,7 +106,18 @@ export interface User {
  */
 export async function user(name: string): Promise<User> {
     const response: RedditUserResponse = await fetchEndpoint(`${name}/about`, "user");
-    const { is_employee, is_gold, id, created, total_karma, comment_karma, link_karma, verified, accept_followers, icon_img } = response.data;
+    const {
+        is_employee,
+        is_gold,
+        id,
+        created,
+        total_karma,
+        comment_karma,
+        link_karma,
+        verified,
+        accept_followers,
+        icon_img,
+    } = response.data;
 
     return {
         name,

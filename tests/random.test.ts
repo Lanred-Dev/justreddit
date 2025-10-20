@@ -1,5 +1,12 @@
 import { suite } from "node:test";
-import { randomPost, Post, RandomPostSortingMethod, RandomSubSortingMethod, randomSub, Sub } from "../src";
+import {
+    Post,
+    randomPost,
+    RandomPostSortingMethod,
+    randomSub,
+    RandomSubSortingMethod,
+    Sub,
+} from "../src";
 import { isValidPost, isValidSub } from "./utils";
 
 suite("Random Tests", () => {
