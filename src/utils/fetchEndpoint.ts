@@ -16,13 +16,15 @@ export default async function fetchEndpoint(
     const response: Response = await fetch(`https://www.reddit.com/${path}`);
 
     if (!response.ok || response.status !== 200)
-        throw new Error(`Could not fetch data from path (${path}) with ${response.status}`);
+        throw new Error(
+            `Could not fetch data from ${path} with status ${response.status} ${response.statusText}`
+        );
 
     const body = await response.json();
 
     if ("error" in body && "message" in body)
         throw new Error(
-            `Could not fetch data from path (${path}) with '${body.message}' and error '${body.error}'`
+            `Could not fetch data from ${path} with '${body.message}' and error '${body.error}'`
         );
 
     return body;
