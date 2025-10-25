@@ -2,10 +2,15 @@
     "name": "justreddit",
     "version": "5.2.0",
     "description": "A simple package for getting random posts, random images, random subs, and sub info.",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
     "engines": {
         "node": ">=21.0.0"
+    },
+    "exports": {
+        ".": {
+            "import": "./build/index.js",
+            "browser": "./build/index.js",
+            "types": "./build/index.d.ts"
+        }
     },
     "keywords": [
         "reddit",
