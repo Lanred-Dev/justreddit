@@ -1,6 +1,8 @@
 import fetchEndpoint from "./utils/fetchEndpoint";
 import validateOption from "./utils/validateOption";
 
+const MAX_RETRIES: number = 2;
+
 export interface RedditPost {
     kind: "t1" | "t3";
     data: {
@@ -251,10 +253,29 @@ export async function randomPost(
 ): Promise<Post> {
     validateOption(method, RandomPostSortingMethod, "sorting option");
 
-    const response: RedditPostsResponse = await fetchEndpoint(
-        sub ? `${sub}/${method}` : `best`,
-        "r"
+    const posts: RedditPost[] = await bulkFetchPosts(
+        sub ? `${sub}/${method}` : method,
+        sub ? "r" : null
     );
-    const posts: RedditPost[] = response.data.children.filter((post) => post.kind === "t3");
+
+    if (posts.length === 0)
+        throw new Error(
+            `Could not find any posts in ${sub || "any subreddit"} using method '${method}'`
+        );
+
     return parsePost(posts[Math.floor(Math.random() * posts.length)].data);
+}
+
+async function bulkFetchPosts(
+    url: string,
+    prefix: "user" | "r" | null,
+    retries: number = 0
+): Promise<RedditPost[]> {
+    const response: RedditPostsResponse = await fetchEndpoint(url, prefix);
+    const posts: RedditPost[] = response.data.children.filter((post) => post.kind === "t3");
+
+    if (posts.length === 0 && retries < MAX_RETRIES)
+        return bulkFetchPosts(url, prefix, retries + 1);
+
+    return posts;
 }
