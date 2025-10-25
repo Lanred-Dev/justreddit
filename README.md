@@ -2,8 +2,6 @@
 
 A simple no-dependency Reddit API wrapper for getting post, comment, and subreddit metadata. This package does not provide authorization functionality for the Reddit API; it simply uses public endpoints.
 
----
-
 ## Getting Started
 
 > Current release (**5.0.0+**) requires **Node.js 21.0.0** at minimum.
@@ -24,8 +22,6 @@ import justreddit from "justreddit";
 ```
 
 And now you're ready to start using **justreddit** 😎
-
----
 
 ## Usage
 
@@ -72,8 +68,6 @@ Getting a comment's information:
 # Note: Replace `dj2ky54` with the ID of your comment
 justreddit.comment("javascript", "6hz7o6", "dj2ky54");
 ```
-
----
 
 ## License
 
