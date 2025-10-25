@@ -1,6 +1,6 @@
 {
     "name": "justreddit",
-    "version": "5.2.0",
+    "version": "5.2.1",
     "description": "A simple package for getting random posts, random images, random subs, and sub info.",
     "engines": {
         "node": ">=21.0.0"
