@@ -30,7 +30,7 @@ And now you're ready to start using **justreddit** 😎
 Getting a subreddit's information:
 
 ```ts
-# NOTE: Replace `javascript` with the name of your subreddit
+# NOTE: Replace `javascript` with the name of the subreddit
 justreddit.sub("javascript");
 ```
 
@@ -45,8 +45,8 @@ justreddit.randomSub();
 Getting a post's information:
 
 ```ts
-# Note: Replace `javascript` with the name of your subreddit
-# Note: Replace `6hz7o6` with the ID of your post
+# Note: Replace `javascript` with the name of the subreddit
+# Note: Replace `6hz7o6` with the ID of the post
 justreddit.post("javascript", "6hz7o6");
 ```
 
@@ -58,15 +58,15 @@ Don't have a post in mind? In that case, you can get a random one:
 justreddit.randomPost(subreddit, sortingOption);
 ```
 
-#### Comments
+#### Replies
 
-Getting a comment's information:
+Getting a reply's information:
 
 ```ts
-# Note: Replace `javascript` with the name of your subreddit
-# Note: Replace `6hz7o6` with the ID of your post
-# Note: Replace `dj2ky54` with the ID of your comment
-justreddit.comment("javascript", "6hz7o6", "dj2ky54");
+# Note: Replace `javascript` with the name of the subreddit
+# Note: Replace `6hz7o6` with the ID of the post
+# Note: Replace `dj2ky54` with the ID of the reply
+justreddit.reply("javascript", "6hz7o6", "dj2ky54");
 ```
 
 ## License
